@@ -18,6 +18,6 @@ jobs:
     steps:
       - name: Hi
         run: echo Hi
-
+ 
       - name: Check message
         run: echo ${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }}
