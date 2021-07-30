@@ -21,3 +21,4 @@ jobs:
 
       - name: Check message
         run: echo ${{ startsWith(github.event.head_commit.message, 'skip-ci:') }}
+ 
