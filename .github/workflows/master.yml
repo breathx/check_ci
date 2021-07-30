@@ -16,7 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Hi
+      - name: Oldest
+        run: echo ${{ github.event.commits[0].message }}
+
+      - name: Newest
         run: echo ${{ github.event.head_commit.message }}
   
       - name: Check message
