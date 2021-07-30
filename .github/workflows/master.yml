@@ -21,4 +21,4 @@ jobs:
         run: echo Hi
 
       - name: Check message
-        run: echo $github.event.head_commit.message
+        run: echo ${{ github.event.head_commit.message }}
