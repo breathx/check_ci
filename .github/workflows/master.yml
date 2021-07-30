@@ -20,4 +20,4 @@ jobs:
         run: echo Hi
 
       - name: Check message
-        run: echo ${{ (3 > 2) || (4 < 5) && (5 < 2) }}
+        run: echo ${{ startsWith(github.event.head_commit.message, 'skip-ci:') }}
