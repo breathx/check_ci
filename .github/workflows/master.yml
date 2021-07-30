@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: PR
+        run: echo ${{ github.event.pull_request.head_commit.message }}
+
       - name: Oldest
         run: echo ${{ github.event.commits[0].message }}
 
