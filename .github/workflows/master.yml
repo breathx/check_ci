@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: PR
-        run: echo ${{ github.event.payload.head_commit.message }}
+        run: echo ${{ github.event.pull_request }}
 
       - name: Oldest
         run: echo ${{ github.event.commits[0].message }}
