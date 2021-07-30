@@ -15,11 +15,8 @@ jobs:
       - name: PR
         run: echo ${{ github.event.pull_request }}
 
-      - name: get commit message
-        run: |
-           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
       - name: show commit message
-        run : echo $commitmsg
+        run : echo $(git log --format=%B -n 1 ${{ github.event.after }})
 
       - name: Oldest
         run: echo ${{ github.event.commits[0].message }}
