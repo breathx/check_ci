@@ -8,11 +8,24 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  SKIP_CI: false
  
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Check skipping on push
+        run: echo "SKIP_CI=$(${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }})" >> $GITHUB_ENV
+
+      - name: Check skipping on push
+        run: echo "SKIP_CI=$(${{ !(startsWith($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip-ci:') || contains($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip CI')) }})" >> $GITHUB_ENV
+
   build:
-    if: ${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') ||
-      contains(github.event.head_commit.message, 'skip CI')) }}
+    if: ${{ !env.SKIP_CI }}
+    needs: prepare
     runs-on: ubuntu-latest
 
     steps:
