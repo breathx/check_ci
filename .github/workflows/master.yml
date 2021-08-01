@@ -18,15 +18,11 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Check skipping on push
-        run: |
-        echo "SKIP_CI=$(${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }})" >> $GITHUB_ENV
-        echo "SKIP_CI=$(${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }})"
+        run: echo '::set-output name=SKIP_CI::${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }}'
       
       - name: Check skipping on pull request
-        run: |
-        echo "SKIP_CI=$(${{ !(startsWith($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip-ci:') || contains($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip CI')) }})" >> $GITHUB_ENV
-        echo "SKIP_CI=$(${{ !(startsWith($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip-ci:') || contains($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip CI')) }})"
-
+        run: echo '::set-output name=SKIP_CI::${{ !(startsWith($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip-ci:') || contains($(git log --format=%B -n 1 ${{ github.event.after }}), 'skip CI')) }}'
+  
   build:
     if: ${{ !env.SKIP_CI }}
     needs: prepare
