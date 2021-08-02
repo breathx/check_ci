@@ -8,18 +8,26 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-
+  COMMIT_MSG: 
+  SKIP_CI: false
+ 
 jobs:
   build:
-    if:
-    ${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') ||
-      contains(github.event.head_commit.message, 'skip CI')) }}
     runs-on: ubuntu-latest
-
+ 
     steps:
-      - name: Hi
-        run: echo Hi
+      - uses: actions/checkout@v1
+      - name: PR
+        run: echo ${{ github.event.pull_request }}
 
+      - name: show commit message
+        run : echo "$(git log --format=%B -n 1 ${{ github.event.after }})"
+
+      - name: Oldest
+        run: echo ${{ github.event.commits[0].message }}
+
+      - name: Newest
+        run: echo ${{ github.event.head_commit.message }}
+  
       - name: Check message
-        run: echo ${{ startsWith(github.event.head_commit.message, 'skip-ci:') }}
-   
+        run: echo ${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }}
