@@ -17,7 +17,6 @@ jobs:
  
     steps:
       - uses: actions/checkout@v1
-
       - name: PR
         run: echo ${{ github.event.pull_request }}
 
