@@ -18,5 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
   
-      - name: Check message
+      - name: Check pwd
+        run: echo $PWD
+
+      - name: Check mkd and pwd
+        run: mkdir a && cd a && echo $PWD
+      
+      - name: Check pwd
         run: echo $PWD
