@@ -19,5 +19,4 @@ jobs:
       - uses: actions/checkout@v1
   
       - name: Check message
-        run: echo ${{ !(startsWith(github.event.head_commit.message, 'skip-ci:') || contains(github.event.head_commit.message, 'skip CI')) }}
- 
+        run: echo $PWD
