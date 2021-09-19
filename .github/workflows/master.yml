@@ -30,13 +30,15 @@ jobs:
         run: node -v
 
       - name: Check ls
-        run: ls
+        run: ls && ls src
       
       - name: Mkd
         run: mkdir abc
       
       - name: Upload result for check
         uses: actions/upload-artifact@v2
+        with:
+          name: a
 
   non-checks:
     needs: check
@@ -46,12 +48,14 @@ jobs:
 
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
-        
+        with:
+          name: a
+
       - name: Check pwd
         run: pwd
 
       - name: Check ls
-        run: ls
+        run: ls && ls src
       
       - name: check node version
         run: node -v
