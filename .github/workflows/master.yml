@@ -34,12 +34,19 @@ jobs:
       
       - name: Mkd
         run: mkdir abc
+      
+      - name: Upload result for check
+        uses: actions/upload-artifact@v2
 
   non-checks:
     needs: check
     runs-on: ubuntu-latest
  
     steps:
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+        
       - name: Check pwd
         run: pwd
 
