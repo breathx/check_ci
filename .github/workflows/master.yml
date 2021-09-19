@@ -12,17 +12,36 @@ env:
   SKIP_CI: false
  
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
  
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
   
       - name: Check pwd
         run: echo $PWD
 
-      - name: Check mkd and pwd
-        run: mkdir a && cd a && echo $PWD
+      - name: Install nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Check ls
+        run: echo $LS
       
+      - name: Mkd
+        run: mkdir abc
+
+  non-checks:
+    needs: check
+    runs-on: ubuntu-latest
+ 
+    steps:
       - name: Check pwd
         run: echo $PWD
+
+      - name: Check ls
+        run: echo $LS
+      
+      - name: check node version
+        run: node -v
