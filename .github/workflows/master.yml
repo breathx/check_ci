@@ -8,54 +8,19 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  COMMIT_MSG: 
-  SKIP_CI: false
- 
+
 jobs:
   check:
     runs-on: ubuntu-latest
- 
     steps:
-      - uses: actions/checkout@v2
-  
-      - name: Check pwd
-        run: pwd
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Install nodejs
-        uses: actions/setup-node@v2
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain@v1
         with:
-          node-version: "16"
-      
-      - name: Check node version
-        run: node -v
+          toolchain: nightly
+          target: wasm32-unknown-unknown
 
-      - name: Check ls
-        run: ls && ls src
-      
-      - name: Mkd
-        run: mkdir abc
-      
-      - name: Upload result for check
-        uses: actions/upload-artifact@v2
-        with:
-          name: a
-
-  non-checks:
-    needs: check
-    runs-on: ubuntu-latest
- 
-    steps:
-
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: a
-
-      - name: Check pwd
-        run: pwd
-
-      - name: Check ls
-        run: ls && ls src
-      
-      - name: check node version
-        run: node -v
+      - name: A
+        run: cargo +nightly fmt --all
