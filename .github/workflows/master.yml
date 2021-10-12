@@ -25,3 +25,6 @@ jobs:
 
       - name: A
         run: cargo +nightly fmt --all
+      
+      - name: Bash check
+        run: which bash
