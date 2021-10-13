@@ -30,3 +30,12 @@ jobs:
         run: which bash
       - name: clippy
         run: cargo +nightly clippy --all
+      
+      - name: tput output
+        run: tput bold && echo "hello, wolrd" && tput sgr0
+
+      - name: tput output
+        run: tput bold && echo "hello, wolrd"
+
+      - name: tput output
+        run: tput bold && echo "hello, wolrd" && tput normal
